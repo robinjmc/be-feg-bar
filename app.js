@@ -5,10 +5,10 @@ const api = require('./routes/api');
 
 app.use(json());
 
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 
-app.get('/api', (req, res) => {
-    res.json({status: 'OK'});
-});
+app.get('/api', (req, res) => res.status(200).send('All good!'));
 
 app.use('/api', api);
+
+module.exports = app;

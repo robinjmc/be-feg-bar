@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "psql -f ./data/seed.test.sql && mocha ./spec",
-    "dev": "nodemon server.js",
+    "dev": "nodemon listen.js",
     "seed": "psql -f ./data/seed.dev.sql"
   },
   "author": "",
