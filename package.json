@@ -15,9 +15,9 @@
     "supertest": "^3.0.0"
   },
   "scripts": {
-    "test": "psql -f ./data/seed.test.sql && mocha ./spec",
+    "test": "psql -f ./seed/test.sql && mocha ./spec",
     "dev": "nodemon listen.js",
-    "seed": "psql -f ./data/seed.dev.sql"
+    "seed": "psql -f ./seed/dev.sql"
   },
   "author": "",
   "license": "ISC"
