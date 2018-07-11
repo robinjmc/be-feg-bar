@@ -1,4 +1,4 @@
-const db = require(`../db/config.${process.env.NODE_ENV}.js`)
+const db = require(`../db`)
 
 module.exports = {
     getAll(req, res){
