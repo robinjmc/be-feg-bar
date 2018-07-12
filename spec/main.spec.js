@@ -14,7 +14,7 @@ describe('API', () => {
                 .then(({body: {feg_types}}) => {
                     expect(feg_types).to.be.an('array')
                     expect(feg_types[0]).to.be.an('object')
-                    expect(feg_types[0].name).to.equal('Vegetable')
+                    expect(feg_types[0].feg_type_name).to.equal('Vegetable')
                     expect(feg_types[1].slug).to.equal('fruit')
                 })
             })
@@ -39,8 +39,32 @@ describe('API', () => {
                 .then(({body: {months}}) => {
                     expect(months).to.be.an('array')
                     expect(months[0]).to.be.an('object')
-                    expect(months[0].name).to.equal('January')
+                    expect(months[0].month_name).to.equal('January')
                     expect(months[10].slug).to.equal('nov')
+                })
+            })
+            it('GET all feggies by month (coming_in)', () => {
+                request(app)
+                .get(`/api/months/${6}/coming_in`)
+                .expect(200)
+                .then(({body: {feggies}}) => {
+                    expect(feggies).to.be.an('array')
+                    expect(feggies[0]).to.be.an('object')
+                    expect(feggies[0].name).to.equal('cavolo_nero')
+                    expect(feggies[1].month_name).to.equal('June')
+                    expect(feggies[2].coming_in_id).to.equal(21)
+                })
+            })
+            it('GET all feggies by month (at_best)', () => {
+                request(app)
+                .get(`/api/months/${7}/at_best`)
+                .expect(200)
+                .then(({body: {feggies}}) => {
+                    expect(feggies).to.be.an('array')
+                    expect(feggies[0]).to.be.an('object')
+                    expect(feggies[0].name).to.equal('aubergine')
+                    expect(feggies[1].month_name).to.equal('July')
+                    expect(feggies[2].at_best_id).to.equal(20)
                 })
             })
         })
@@ -56,20 +80,26 @@ describe('API', () => {
                     expect(feggies[32].feg_type_id).to.equal(2)
                 })
             })
-            it('GET all feggies by month (coming_in)', () => {
+            it('GET feggie season by id (coming_in)', () => {
                 request(app)
-                .get(`/api/feggies/coming_in/${1}`)
+                .get(`/api/feggies/${1}/coming_in`)
                 .expect(200)
                 .then(({body: {feggies}}) => {
-                    console.log(feggies)  
+                    expect(feggies).to.be.an('array')
+                    expect(feggies[0]).to.be.an('object')
+                    expect(feggies[0].name).to.equal('aubergine')
+                    expect(feggies[0].slug).to.equal('may')
                 })
             })
-            it('GET all feggies by month (at_best)', () => {
+            it('GET feggie season by id (at_best)', () => {
                 request(app)
-                .get(`/api/feggies/at_best/${7}`)
+                .get(`/api/feggies/${7}/at_best`)
                 .expect(200)
                 .then(({body: {feggies}}) => {
-                    console.log(feggies)  
+                    expect(feggies).to.be.an('array')
+                    expect(feggies[0]).to.be.an('object')
+                    expect(feggies[3].name).to.equal('courgette')
+                    expect(feggies[2].slug).to.equal('aug')
                 })
             })
             it('GET feggie by id', () => {
@@ -77,7 +107,9 @@ describe('API', () => {
                 .get('/api/feggies/1')
                 .expect(200)
                 .then(({body: {feggie}}) => {
-                    console.log(feggie)  
+                    expect(feggie).to.be.an('object')
+                    expect(feggie.feggies_id).to.equal(1)
+                    expect(feggie.name).to.equal('aubergine')
                 })
             })
         })

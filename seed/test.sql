@@ -66,9 +66,15 @@ INSERT INTO at_best(feggie_id, month_id)
 --   JOIN months ON at_best.month_id = months.months_id
 --   JOIN feg_types ON feggies.feg_type_id = feg_types.feg_types_id
 --   WHERE feggies.feggies_id = 5;
-SELECT * FROM feggies
-  JOIN coming_in ON feggies.feggies_id = coming_in.feggie_id
-  JOIN at_best ON feggies.feggies_id = at_best.feggie_id
-  JOIN months ON at_best.month_id = months.months_id
-  JOIN feg_types ON feggies.feg_type_id = feg_types.feg_types_id
-  WHERE feggies.feggies_id = 5;
+-- SELECT * FROM feggies
+--   JOIN coming_in ON feggies.feggies_id = coming_in.feggie_id
+--   JOIN at_best ON feggies.feggies_id = at_best.feggie_id
+--   JOIN months ON at_best.month_id = months.months_id
+--   JOIN feg_types ON feggies.feg_type_id = feg_types.feg_types_id
+--   WHERE feggies.feggies_id = 5;
+-- IS THERE A WAY TO DO A AND TYPE STATEMENT I.E. JOIN months ON at_best.month_id = months.months_id AND coming_in.month_id = months.months_id
+
+-- SELECT * FROM months
+--   JOIN at_best ON months.months_id = at_best.month_id
+--   LEFT JOIN feggies ON at_best.feggie_id = feggies.feggies_id
+--   JOIN feg_types ON feggies.feg_type_id = feg_types.feg_types_id;

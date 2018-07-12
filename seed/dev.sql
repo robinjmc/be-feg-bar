@@ -5,13 +5,13 @@ CREATE DATABASE fegtable;
 
 CREATE TABLE feg_types (
   feg_types_id SERIAL PRIMARY KEY,
-  name VARCHAR(25) NOT NULL,
+  feg_type_name VARCHAR(25) NOT NULL,
   slug VARCHAR(25) NOT NULL
 );
 
 CREATE TABLE months (
   months_id SERIAL PRIMARY KEY,
-  name VARCHAR(25) NOT NULL,
+  month_name VARCHAR(25) NOT NULL,
   slug VARCHAR(25) NOT NULL
 );
 
@@ -40,10 +40,10 @@ CREATE TABLE at_best (
 );
 
 
-INSERT INTO feg_types (name, slug)
+INSERT INTO feg_types (feg_type_name, slug)
   VALUES ('Vegetable', 'veg'), ('Fruit', 'fruit');
 
-INSERT INTO months(name, slug) 
+INSERT INTO months(month_name, slug) 
   VALUES ('January', 'jan'), ('February', 'feb'), ('March', 'mar'), ('April', 'apr'), ('May', 'may'), ('June', 'jun'), ('July', 'jul'), ('August', 'aug'), ('September', 'sept'), ('October', 'oct'), ('November', 'nov'), ('December', 'feb');
 
 INSERT INTO feggies(name, feg_type_id, img_src) 
