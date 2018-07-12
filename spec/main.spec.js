@@ -18,7 +18,7 @@ describe('API', () => {
                     expect(feg_types[1].slug).to.equal('fruit')
                 })
             })
-            it.only('GET all feggies by type', () => {
+            it('GET all feggies by type', () => {
                 request(app)
                 .get('/api/feg_types/2')
                 .expect(200)
