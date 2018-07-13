@@ -144,6 +144,17 @@ describe('API', () => {
                     })
                 })
             })
+            it('PUT the amount of feg in list', () => {
+                request(app)
+                .put('/api/feg_list/1?amount=up')
+                .expect(201)
+                .then(({body: {feg_list}}) => {
+                    expect(feg_list).to.be.an('object')
+                    expect(feg_list.feg_list_id).to.equal(1)
+                    expect(feg_list.feggie_id).to.equal(1)
+                    expect(feg_list.amount).to.equal(1)
+                })
+            })
         })
     })
     describe('error handeling', () => {
