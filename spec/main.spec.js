@@ -123,6 +123,27 @@ describe('API', () => {
                     expect(feg_list.length).to.equal(0)
                 })
             })
+            it('POST a feg in list', () => {
+                request(app)
+                .post('/api/feg_list/1')
+                .send({
+                    "feggie_id": "1",
+                    "feg_name":"aubergine",
+                    "img_src":"https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                    "amount": "0"
+                })
+                .expect(201)
+                .then(({ body: {feggie} }) => {
+                    expect(feggie).to.be.an('object')
+                    expect(feggie).to.eql({
+                        'feg_list_id': 1,
+                        'feggie_id': 1,
+                        'feg_name': 'aubergine',
+                        'img_src': 'https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d',
+                        'amount': 0 
+                    })
+                })
+            })
         })
     })
     describe('error handeling', () => {
