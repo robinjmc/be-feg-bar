@@ -41,7 +41,7 @@ CREATE TABLE at_best (
 
 CREATE TABLE feg_list (
   feg_list_id SERIAL PRIMARY KEY,
-  feggies_id INTEGER NOT NULL, 
+  feggie_id INTEGER NOT NULL, 
   feg_name VARCHAR(25) NOT NULL,
   img_src   VARCHAR(105) NOT NULL,
   FOREIGN KEY (feggie_id) REFERENCES feggies(feggies_id)

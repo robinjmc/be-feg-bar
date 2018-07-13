@@ -113,6 +113,17 @@ describe('API', () => {
                     })
             })
         })
+        describe.only('/feg_list', () => {
+            it('GET all feg in list', () => {
+                request(app)
+                .get('/api/feg_list')
+                .expect(200)
+                .then(({ body: { feg_list } }) => {
+                    expect(feg_list).to.be.an('array')
+                    expect(feg_list.length).to.equal(0)
+                })
+            })
+        })
     })
     describe('error handeling', () => {
         describe('feg types', () => {
