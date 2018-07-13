@@ -39,6 +39,14 @@ CREATE TABLE at_best (
   FOREIGN KEY (month_id) REFERENCES months(months_id)
 );
 
+CREATE TABLE feg_list (
+  feg_list_id SERIAL PRIMARY KEY,
+  feggies_id INTEGER NOT NULL, 
+  feg_name VARCHAR(25) NOT NULL,
+  img_src   VARCHAR(105) NOT NULL,
+  FOREIGN KEY (feggie_id) REFERENCES feggies(feggies_id)
+);
+
 
 INSERT INTO feg_types (feg_type_name, slug)
   VALUES ('Vegetable', 'veg'), ('Fruit', 'fruit');
