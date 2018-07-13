@@ -114,11 +114,11 @@ describe('API', () => {
             })
         })
     })
-    describe.only('error handeling', () => {
+    describe('error handeling', () => {
         describe('feg types', () => {
             it('returns 404 for non-existing feg_type id', () => {
                 request(app)
-                    .get('/api/feg_types/4')
+                    .get(`/api/feg_types/${4}`)
                     .expect(404)
                     .then(({ body }) => {
                         expect(body.message).to.equal('Not Found')
@@ -136,7 +136,7 @@ describe('API', () => {
         describe('months', () => {
             it('returns 404 for non-existing month id', () => {
                 request(app)
-                    .get('/api/months/40/at_best')
+                    .get(`/api/months/${40}/at_best`)
                     .expect(404)
                     .then(({ body }) => {
                         expect(body.message).to.equal('Not Found')
@@ -154,7 +154,7 @@ describe('API', () => {
         describe('feggies', () => {
                 it('returns 404 for non-existing feggie id', () => {
                     request(app)
-                        .get('/api/feggies/400')
+                        .get(`/api/feggies/${400}`)
                         .expect(404)
                         .then(({ body }) => {
                             expect(body.message).to.equal('Not Found')
@@ -170,7 +170,7 @@ describe('API', () => {
                 })
                 it('returns 404 for non-existing feggie id (seasonsal)', () => {
                     request(app)
-                        .get('/api/feggies/4400/coming_in')
+                        .get(`/api/feggies/${4400}/coming_in`)
                         .expect(404)
                         .then(({ body }) => {
                             expect(body.message).to.equal('Not Found')
