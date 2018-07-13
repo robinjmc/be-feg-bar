@@ -114,43 +114,75 @@ describe('API', () => {
             })
         })
     })
-    describe('error handeling', () => {
+    describe.only('error handeling', () => {
         describe('feg types', () => {
             it('returns 404 for non-existing feg_type id', () => {
                 request(app)
                     .get('/api/feg_types/4')
+                    .expect(404)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Not Found')
+                    })
             })
             it('returns 400 for bad request non-id structure', () => {
                 request(app)
                     .get('/api/feg_types/cow')
+                    .expect(400)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Bad Request')
+                    })
             })
         })
         describe('months', () => {
             it('returns 404 for non-existing month id', () => {
                 request(app)
                     .get('/api/months/40/at_best')
+                    .expect(404)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Not Found')
+                    })
             })
             it('returns 400 for bad request non-id structure', () => {
                 request(app)
                     .get('/api/months/cow/coming_in')
+                    .expect(400)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Bad Request')
+                    })
             })
         })
         describe('feggies', () => {
                 it('returns 404 for non-existing feggie id', () => {
                     request(app)
                         .get('/api/feggies/400')
+                        .expect(404)
+                        .then(({ body }) => {
+                            expect(body.message).to.equal('Not Found')
+                        })
                 })
                 it('returns 400 for bad request non-id structure', () => {
                     request(app)
                         .get('/api/feggies/cow')
+                        .expect(400)
+                        .then(({ body }) => {
+                            expect(body.message).to.equal('Bad Request')
+                        })
                 })
                 it('returns 404 for non-existing feggie id (seasonsal)', () => {
                     request(app)
                         .get('/api/feggies/4400/coming_in')
+                        .expect(404)
+                        .then(({ body }) => {
+                            expect(body.message).to.equal('Not Found')
+                        })
                 })
                 it('returns 400 for bad request non-id structure (seasonsal)', () => {
                     request(app)
                         .get('/api/feggies/foo/at_best')
+                        .expect(400)
+                        .then(({ body }) => {
+                            expect(body.message).to.equal('Bad Request')
+                        })
                 })
 
         })

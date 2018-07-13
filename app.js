@@ -11,13 +11,11 @@ app.get('/api', (req, res) => res.status(200).send('All good!'));
 
 app.use('/api', api);
 
-// app.use((err, req, res, next) => {
-//     console.log('error', JSON.stringify(err, null, 2))
-//     //CastError err.name validationError === 400
-//     //CastError is for invalid ObjectId ValidationError is when the data doesnt match the schema
-//     if(err.name === 'CastError' || err.name === 'ValidationError') return res.status(400).send({message: 'Bad Request'});
-//     if(err.status === 404 || err.status === 501 || err.name === 'TypeError') return res.status(err.status).send({message: 'Not Found'});
-//     next();
-// })
+app.use((err, req, res, next) => {
+    console.log('error', JSON.stringify(err, null, 2))
+    if(err.name === 'CastError' || err.name === 'ValidationError') return res.status(400).send({message: 'Bad Request'});
+    if(err.status === 404 || err.status === 501 || err.name === 'TypeError') return res.status(err.status).send({message: 'Not Found'});
+    next();
+})
 
 module.exports = app;

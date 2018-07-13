@@ -1,12 +1,12 @@
 const db = require(`../db`)
 
 module.exports = {
-    getAll(req, res){
+    getAll(req, res, next){
         db.manyOrNone('SELECT * FROM feg_types')
                 .then((feg_types) => {
                     res.send({feg_types});
                 })
-                .catch(console.log);
+                .catch(next);
     },
     getByType(req, res){
         const id = req.params.id
@@ -14,6 +14,6 @@ module.exports = {
             .then((feg_types) => {
                 res.send({feg_types})
             })
-            .catch(console.log);
+            .catch(next);
     }
 }
