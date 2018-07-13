@@ -229,49 +229,49 @@ describe('API', () => {
                 })
 
         })
-        describe('feg_list', () => {
-            it('POST returns 404 for non-existing feg_id', () => {
-                request(app)
-                .post('/api/feg_list/1000')
-                .send({
-                    "feggie_id": "1000",
-                    "feg_name":"foobar",
-                    "img_src":"barfoo",
-                    "amount": "0"
-                })
-                .expect(404)
-                .then(({body}) => console.log(body))
-            })
-            it('POST returns 400 if url feg_id does not match send feggie_id', () => {
-                request(app)
-                .post('/api/feg_list/100')
-                .send({
-                    "feggie_id": "1",
-                    "feg_name":"aubergine",
-                    "img_src":"https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                    "amount": "0"
-                })
-                .expect(400)
-                .then(console.log)
-            })
-            it('POST returns 400 for bad request non-id structure', () => {
-                request(app)
-            })
-            it('POST returns 400 for bad post request w/out all required inputs', () => {
-                request(app)
-            })
-            it('PUT returns 400 incorrect query', () => {
-                request(app)
+        // describe('feg_list', () => {
+        //     // it('POST returns 404 for non-existing feg_id', () => {
+        //     //     request(app)
+        //     //     .post('/api/feg_list/1000')
+        //     //     .send({
+        //     //         "feggie_id": "1000",
+        //     //         "feg_name":"foobar",
+        //     //         "img_src":"barfoo",
+        //     //         "amount": "0"
+        //     //     })
+        //     //     .expect(404)
+        //     //     .then(({body}) => console.log(body))
+        //     // })
+        //     // it('POST returns 400 if url feg_id does not match send feggie_id', () => {
+        //     //     request(app)
+        //     //     .post('/api/feg_list/100')
+        //     //     .send({
+        //     //         "feggie_id": "1",
+        //     //         "feg_name":"aubergine",
+        //     //         "img_src":"https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+        //     //         "amount": "0"
+        //     //     })
+        //     //     .expect(400)
+        //     //     .then(console.log)
+        //     // })
+        //     // it('POST returns 400 for bad request non-id structure', () => {
+        //     //     request(app)
+        //     // })
+        //     // it('POST returns 400 for bad post request w/out all required inputs', () => {
+        //     //     request(app)
+        //     // })
+        //     // it('PUT returns 400 incorrect query', () => {
+        //     //     request(app)
 
-            })
-            it('PUT ignores  404 for non-existing feg_list_id', () => {
-                request(app)
+        //     // })
+        //     // it('PUT ignores  404 for non-existing feg_list_id', () => {
+        //     //     request(app)
                 
-            })
-            it('PUT ignores  404 for bad request non-id structure', () => {
-                request(app)
+        //     // })
+        //     // it('PUT ignores  404 for bad request non-id structure', () => {
+        //     //     request(app)
                 
-            })
-        })
+        //     // })
+        // })
     })
 })

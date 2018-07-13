@@ -12,7 +12,6 @@ module.exports = {
         if(!feg_id.match(/\d/)) throw { status: 400 }
         db.manyOrNone(`SELECT * FROM ${in_season} JOIN feggies ON ${in_season}.feggie_id = feggies.feggies_id JOIN months ON ${in_season}.month_id = months.months_id WHERE feggies.feggies_id = ${feg_id};`)
             .then((feggies) => {
-                console.log( feggies)
                 if (!feggies.length) throw { status: 404 }
                 //if (typeof feggies === undefined) throw { status: 404 }
                 res.send({ feggies })
@@ -24,7 +23,6 @@ module.exports = {
         if(!id.match(/\d/)) throw { status: 400 }
         db.oneOrNone(`SELECT * FROM feggies WHERE feggies.feggies_id = ${id};`)
             .then((feggie) => {
-                console.log(!feggie)
                 if (!feggie) throw { status: 404 }
                 res.send({ feggie })
             })
