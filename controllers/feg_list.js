@@ -16,7 +16,9 @@ module.exports = {
             .then((feggie) => {
                 res.status(201).send({ feggie })
             })
-            .catch(next);
+            .catch(err => {
+                throw { status: 404 }
+            });
     },
     amount(req, res, next) {
         const { feg_list_id } = req.params
@@ -26,7 +28,9 @@ module.exports = {
                 .then((feg_list) => {
                     res.status(201).send({ feg_list });
                 })
-                .catch(next)
+                .catch(err => {
+                    res.send({ status: 404})
+                });
         }
         else if (amount === 'down') {
             return db.one(`UPDATE feg_list SET amount = amount - 1 WHERE feg_list_id = $1 RETURNING *`, [feg_list_id])
