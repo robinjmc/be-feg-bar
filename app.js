@@ -2,6 +2,9 @@ if (process.env.NODE_ENV !== 'test') process.env.NODE_ENV = 'dev';
 const app = require('express')();
 const {json} = require('body-parser');
 const api = require('./routes/api');
+const cors = require('cors');
+
+app.use(cors());
 
 app.use(json());
 
