@@ -14,11 +14,10 @@ module.exports = {
         if (feg_id !== feggie_id) throw { status: 400 }
         db.one('INSERT INTO feg_list (feggie_id, feg_name, img_src, amount) VALUES ($1, $2, $3, $4) RETURNING *', [feggie_id, feg_name, img_src, amount])
             .then((feggie) => {
+                console.log('feggie')
                 res.status(201).send({ feggie })
             })
-            .catch(err => {
-                throw { status: 404 }
-            });
+            .catch(next);
     },
     amount(req, res, next) {
         const { feg_list_id } = req.params

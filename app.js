@@ -14,7 +14,11 @@ app.use('/api', api);
 app.use((err, req, res, next) => {
     console.log('error', JSON.stringify(err, null, 2))
     if(err.status === 400 || err.name === 'CastError' || err.name === 'ValidationError') return res.status(400).send({message: 'Bad Request'});
-    if(err.status === 404 || err.status === 501 || err.name === 'TypeError') return res.status(err.status).send({message: 'Not Found'});
+    if(err.status === 404 || err.status === 501 || err.name === 'TypeError' || /is not present in table/g.test(err.detail)) {
+        // console.log('not found', res.status)
+        return res.status(404).send({message: 'Not Found'})
+        //return res.status(err.status).send({message: 'Not Found'})
+    };
     next();
 })
 
