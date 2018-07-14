@@ -144,16 +144,97 @@ describe('API', () => {
                         })
                     })
             })
-            it('PUT the amount of feg in list', () => {
+            it('POST same feg twice in list increments the amount', () => {
+                const amount = 0
                 return request
-                    .put('/api/feg_list/1?amount=up')
-                    .expect(201)
-                    .then(({ body: { feg_list } }) => {
-                        expect(feg_list).to.be.an('object')
-                        expect(feg_list.feg_list_id).to.equal(1)
-                        expect(feg_list.feggie_id).to.equal(1)
-                        expect(feg_list.amount).to.equal(1)
+                    .post('/api/feg_list/5')
+                    .send({
+                        "feggie_id": "5",
+                        "feg_name": "cavolo_nero",
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                        "amount": `${amount}`
                     })
+                    .expect(201)
+                    .then(({ body: {feggie} }) => {
+                        return request
+                            .post('/api/feg_list/5')
+                            .send({
+                                "feggie_id": `${feggie.feggie_id}`,
+                                "feg_name": `${feggie.feg_name}`,
+                                "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                                "amount": `${feggie.amount}`
+                            })
+                            .expect(201)
+                    })
+                    .then(({ body: {feggie}  }) => {
+                        expect(feggie.amount).to.equal(amount + 1)
+                    })
+            })
+            it('PUT the amount of feg in list (up)', () => {
+                return request
+                    .post('/api/feg_list/2')
+                    .send({
+                        "feggie_id": "2",
+                        "feg_name": "beetroot",
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                        "amount": "0"
+                    })
+                    .expect(201)
+                    .then(({ body: { feggie } }) => {
+                        return request
+                            .put(`/api/feg_list/${feggie.feg_list_id}?amount=up`)
+                            .expect(201)
+                            .then(({ body: { feg_list } }) => {
+                                expect(feg_list).to.be.an('object')
+                                expect(feg_list.feggie_id).to.equal(2)
+                                expect(feg_list.amount).to.equal(1)
+                            })
+                    })
+            })
+            it('PUT the amount of feg in list (down)', () => {
+                return request
+                    .post('/api/feg_list/4')
+                    .send({
+                        "feggie_id": "4",
+                        "feg_name": "carrot",
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                        "amount": "1"
+                    })
+                    .expect(201)
+                    .then(({ body: { feggie } }) => {
+                        return request
+                            .put(`/api/feg_list/${feggie.feg_list_id}?amount=down`)
+                            .expect(201)
+                            .then(({ body: { feg_list } }) => {
+                                expect(feg_list).to.be.an('object')
+                                expect(feg_list.feggie_id).to.equal(4)
+                                expect(feg_list.amount).to.equal(0)
+                            })
+                    })
+            })
+            it('DELETE remove item/feg in list', () => {
+                // let list_id;
+                return request
+                    .post('/api/feg_list/3')
+                    .send({
+                        "feggie_id": "3",
+                        "feg_name": "brussels sprouts",
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                        "amount": "0"
+                    })
+                    .expect(201)
+                    .then(({ body: { feggie } }) => {
+                        // return list_id = feggie.feg_list_id
+                        return request
+                            .delete(`/api/feg_list/${feggie.feg_list_id}`)
+                            .expect(202)
+                            .then(({ body: { feg_list } }) => {
+                                console.log(feg_list)
+                                expect(feg_list).to.be.an('object')
+                                expect(feg_list.feg_name).to.equal('brussels sprouts')
+                            })
+                    })
+
             })
         })
     })
@@ -229,7 +310,7 @@ describe('API', () => {
             })
 
         })
-        describe.only('feg_list', () => {
+        describe('feg_list', () => {
             it('POST returns 404 for non-existing feg_id', () => {
                 return request
                     .post('/api/feg_list/1000')
@@ -324,6 +405,28 @@ describe('API', () => {
                         expect(res.error.text).to.equal('{"message":"Bad Request"}');
                     })
             })
+            it('DELETE 404 when id not in list', () => {
+                return request
+                    .delete(`/api/feg_list/32`)
+                    .expect(404)
+                    .then(res => {
+                        expect(res.body.message).to.equal('Not Found')
+                        expect(res.error.status).to.equal(404)
+                        expect(res.error.text).to.equal('{"message":"Not Found"}');
+                    })
+            })
+            it('DELETE 400 for bad request non-id structure', () => {
+                return request
+                    .delete(`/api/feg_list/bananas`)
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body.message).to.equal('Bad Request')
+                        expect(res.error.status).to.equal(400)
+                        expect(res.error.text).to.equal('{"message":"Bad Request"}');
+                    })
+            })
+
+
         })
     })
 })

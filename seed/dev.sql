@@ -79,3 +79,4 @@ INSERT INTO at_best(feggie_id, month_id)
 -- JOIN months ON coming_in.month_id = months.months_id
 -- JOIN feggies ON at_best.feggie_id = feggies.feggies_id
 -- JOIN months ON at_best.month_id = months.months_id;
+-- where 
