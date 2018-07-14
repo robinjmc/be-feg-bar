@@ -116,44 +116,44 @@ describe('API', () => {
         describe('/feg_list', () => {
             it('GET all feg in list', () => {
                 return request
-                .get('/api/feg_list')
-                .expect(200)
-                .then(({ body: { feg_list } }) => {
-                    expect(feg_list).to.be.an('array')
-                    expect(feg_list.length).to.equal(0)
-                })
+                    .get('/api/feg_list')
+                    .expect(200)
+                    .then(({ body: { feg_list } }) => {
+                        expect(feg_list).to.be.an('array')
+                        expect(feg_list.length).to.equal(0)
+                    })
             })
             it('POST a feg in list', () => {
                 return request
-                .post('/api/feg_list/1')
-                .send({
-                    "feggie_id": "1",
-                    "feg_name":"aubergine",
-                    "img_src":"https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                    "amount": "0"
-                })
-                .expect(201)
-                .then(({ body: {feggie} }) => {
-                    expect(feggie).to.be.an('object')
-                    expect(feggie).to.eql({
-                        'feg_list_id': 1,
-                        'feggie_id': 1,
-                        'feg_name': 'aubergine',
-                        'img_src': 'https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d',
-                        'amount': 0 
+                    .post('/api/feg_list/1')
+                    .send({
+                        "feggie_id": "1",
+                        "feg_name": "aubergine",
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                        "amount": "0"
                     })
-                })
+                    .expect(201)
+                    .then(({ body: { feggie } }) => {
+                        expect(feggie).to.be.an('object')
+                        expect(feggie).to.eql({
+                            'feg_list_id': 1,
+                            'feggie_id': 1,
+                            'feg_name': 'aubergine',
+                            'img_src': 'https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d',
+                            'amount': 0
+                        })
+                    })
             })
             it('PUT the amount of feg in list', () => {
                 return request
-                .put('/api/feg_list/1?amount=up')
-                .expect(201)
-                .then(({body: {feg_list}}) => {
-                    expect(feg_list).to.be.an('object')
-                    expect(feg_list.feg_list_id).to.equal(1)
-                    expect(feg_list.feggie_id).to.equal(1)
-                    expect(feg_list.amount).to.equal(1)
-                })
+                    .put('/api/feg_list/1?amount=up')
+                    .expect(201)
+                    .then(({ body: { feg_list } }) => {
+                        expect(feg_list).to.be.an('object')
+                        expect(feg_list.feg_list_id).to.equal(1)
+                        expect(feg_list.feggie_id).to.equal(1)
+                        expect(feg_list.amount).to.equal(1)
+                    })
             })
         })
     })
@@ -195,105 +195,135 @@ describe('API', () => {
             })
         })
         describe('feggies', () => {
-                it('returns 404 for non-existing feggie id', () => {
-                    return request
-                        .get(`/api/feggies/${400}`)
-                        .expect(404)
-                        .then(({ body }) => {
-                            expect(body.message).to.equal('Not Found')
-                        })
-                })
-                it('returns 400 for bad request non-id structure', () => {
-                    return request
-                        .get('/api/feggies/cow')
-                        .expect(400)
-                        .then(({ body }) => {
-                            expect(body.message).to.equal('Bad Request')
-                        })
-                })
-                it('returns 404 for non-existing feggie id (seasonsal)', () => {
-                    return request
-                        .get(`/api/feggies/${4400}/coming_in`)
-                        .expect(404)
-                        .then(({ body }) => {
-                            expect(body.message).to.equal('Not Found')
-                        })
-                })
-                it('returns 400 for bad request non-id structure (seasonsal)', () => {
-                    return request
-                        .get('/api/feggies/foo/at_best')
-                        .expect(400)
-                        .then(({ body }) => {
-                            expect(body.message).to.equal('Bad Request')
-                        })
-                })
+            it('returns 404 for non-existing feggie id', () => {
+                return request
+                    .get(`/api/feggies/${400}`)
+                    .expect(404)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Not Found')
+                    })
+            })
+            it('returns 400 for bad request non-id structure', () => {
+                return request
+                    .get('/api/feggies/cow')
+                    .expect(400)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Bad Request')
+                    })
+            })
+            it('returns 404 for non-existing feggie id (seasonsal)', () => {
+                return request
+                    .get(`/api/feggies/${4400}/coming_in`)
+                    .expect(404)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Not Found')
+                    })
+            })
+            it('returns 400 for bad request non-id structure (seasonsal)', () => {
+                return request
+                    .get('/api/feggies/foo/at_best')
+                    .expect(400)
+                    .then(({ body }) => {
+                        expect(body.message).to.equal('Bad Request')
+                    })
+            })
 
         })
         describe.only('feg_list', () => {
             it('POST returns 404 for non-existing feg_id', () => {
                 return request
-                .post('/api/feg_list/1000')
-                .send({
-                    "feggie_id": "1000",
-                    "feg_name":"foobar",
-                    "img_src":"barfoo",
-                    "amount": "0"
-                })
-                .expect(404)
-                .then(( res ) => {
-                    expect(res.body.message).to.equal('Not Found')
-                    expect(res.error.status).to.equal(404)
-                    expect(res.error.text).to.equal('{"message":"Not Found"}');
-                })
-            
+                    .post('/api/feg_list/1000')
+                    .send({
+                        "feggie_id": "1000",
+                        "feg_name": "foobar",
+                        "img_src": "barfoo",
+                        "amount": "0"
+                    })
+                    .expect(404)
+                    .then((res) => {
+                        expect(res.body.message).to.equal('Not Found')
+                        expect(res.error.status).to.equal(404)
+                        expect(res.error.text).to.equal('{"message":"Not Found"}');
+                    })
+
             })
             it('POST returns 400 if url feg_id does not match send feggie_id', () => {
                 return request
-                .post('/api/feg_list/100')
-                .send({
-                    "feggie_id": "1",
-                    "feg_name":"aubergine",
-                    "img_src":"https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                    "amount": "0"
-                })
-                .expect(400)
-                .then(res => {
-                    expect(res.body.message).to.equal('Bad Request')
-                    expect(res.error.status).to.equal(400)
-                    expect(res.error.text).to.equal('{"message":"Bad Request"}');
-                })
+                    .post('/api/feg_list/100')
+                    .send({
+                        "feggie_id": "1",
+                        "feg_name": "aubergine",
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                        "amount": "0"
+                    })
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body.message).to.equal('Bad Request')
+                        expect(res.error.status).to.equal(400)
+                        expect(res.error.text).to.equal('{"message":"Bad Request"}');
+                    })
             })
             it('POST returns 400 for bad request non-id structure', () => {
                 return request
-                .post('/api/feg_list/foo')
-                .send({
-                    "feggie_id": "1",
-                    "feg_name":"aubergine",
-                    "img_src":"https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                    "amount": "0"
-                })
-                .expect(400)
-                .then(res => {
-                    expect(res.body.message).to.equal('Bad Request')
-                    expect(res.error.status).to.equal(400)
-                    expect(res.error.text).to.equal('{"message":"Bad Request"}');
-                })
+                    .post('/api/feg_list/foo')
+                    .send({
+                        "feggie_id": "1",
+                        "feg_name": "aubergine",
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                        "amount": "0"
+                    })
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body.message).to.equal('Bad Request')
+                        expect(res.error.status).to.equal(400)
+                        expect(res.error.text).to.equal('{"message":"Bad Request"}');
+                    })
             })
-            // it('POST returns 400 for bad post request w/out all required inputs', () => {
-            //     return request
-            // })
-            // it('PUT returns 400 incorrect query', () => {
-            //     return request
+            it('POST returns 400 for bad post request w/out all required inputs', () => {
+                return request
+                    .post('/api/feg_list/1')
+                    .send({
+                        "feggie_id": "1",
+                        "amount": "0"
+                    })
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body.message).to.equal('Bad Request')
+                        expect(res.error.status).to.equal(400)
+                        expect(res.error.text).to.equal('{"message":"Bad Request"}');
+                    })
+            })
+            it('PUT returns 400 incorrect query', () => {
+                return request
+                    .put('/api/feg_list/1?amount=bananas')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body.message).to.equal('Bad Request')
+                        expect(res.error.status).to.equal(400)
+                        expect(res.error.text).to.equal('{"message":"Bad Request"}');
+                    })
 
-            // })
-            // it('PUT ignores  404 for non-existing feg_list_id', () => {
-            //     return request
-                
-            // })
-            // it('PUT ignores  404 for bad request non-id structure', () => {
-            //     return request
-                
-            // })
+            })
+            it('PUT ignores  404 for non-existing feg_list_id', () => {
+                return request
+                    .put('/api/feg_list/6?amount=up')
+                    .expect(404)
+                    .then((res) => {
+                        expect(res.body.message).to.equal('Not Found')
+                        expect(res.error.status).to.equal(404)
+                        expect(res.error.text).to.equal('{"message":"Not Found"}');
+                    })
+            })
+            it('PUT ignores  400 for bad request non-id structure', () => {
+                return request
+                    .put('/api/feg_list/vegtable?amount=up')
+                    .expect(400)
+                    .then(res => {
+                        expect(res.body.message).to.equal('Bad Request')
+                        expect(res.error.status).to.equal(400)
+                        expect(res.error.text).to.equal('{"message":"Bad Request"}');
+                    })
+            })
         })
     })
 })

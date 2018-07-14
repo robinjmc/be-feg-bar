@@ -22,14 +22,13 @@ module.exports = {
     amount(req, res, next) {
         const { feg_list_id } = req.params
         const { amount } = req.query
+        if(!feg_list_id.match(/\d/)) throw { status: 400 }
         if (amount === 'up') {
             return db.one(`UPDATE feg_list SET amount = amount + 1 WHERE feg_list_id = $1 RETURNING *`, [feg_list_id])
                 .then((feg_list) => {
                     res.status(201).send({ feg_list });
                 })
-                .catch(err => {
-                    res.send({ status: 404})
-                });
+                .catch(next);
         }
         else if (amount === 'down') {
             return db.one(`UPDATE feg_list SET amount = amount - 1 WHERE feg_list_id = $1 RETURNING *`, [feg_list_id])
@@ -39,7 +38,7 @@ module.exports = {
                 .catch(next)
         } 
         else {
-            console.log('hello')
+            throw { status: 400 }
         }
         //const num = req.query.amount === 'up' ? 1 : req.query.amount === 'down' ? -1 : 0;
 
