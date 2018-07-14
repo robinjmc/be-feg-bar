@@ -263,9 +263,22 @@ describe('API', () => {
                     expect(res.error.text).to.equal('{"message":"Bad Request"}');
                 })
             })
-            // it('POST returns 400 for bad request non-id structure', () => {
-            //     return request
-            // })
+            it('POST returns 400 for bad request non-id structure', () => {
+                return request
+                .post('/api/feg_list/foo')
+                .send({
+                    "feggie_id": "1",
+                    "feg_name":"aubergine",
+                    "img_src":"https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
+                    "amount": "0"
+                })
+                .expect(400)
+                .then(res => {
+                    expect(res.body.message).to.equal('Bad Request')
+                    expect(res.error.status).to.equal(400)
+                    expect(res.error.text).to.equal('{"message":"Bad Request"}');
+                })
+            })
             // it('POST returns 400 for bad post request w/out all required inputs', () => {
             //     return request
             // })
