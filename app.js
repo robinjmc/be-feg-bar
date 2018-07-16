@@ -1,4 +1,5 @@
-if (process.env.NODE_ENV !== 'test') process.env.NODE_ENV = 'dev';
+process.env.NODE_ENV =  process.env.NODE_ENV || 'dev';
+
 const app = require('express')();
 const {json} = require('body-parser');
 const api = require('./routes/api');
