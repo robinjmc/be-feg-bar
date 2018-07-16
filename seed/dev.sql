@@ -18,7 +18,7 @@ CREATE TABLE months (
 CREATE TABLE feggies(
   feggies_id SERIAL PRIMARY KEY,
   name      VARCHAR(25) NOT NULL,
-  img_src   VARCHAR(105) NOT NULL, 
+  img_src   VARCHAR(500) NOT NULL, 
   feg_type_id      INTEGER  NOT NULL,
   FOREIGN KEY (feg_type_id) REFERENCES feg_types(feg_types_id)
 );
@@ -43,7 +43,7 @@ CREATE TABLE feg_list (
   feg_list_id SERIAL PRIMARY KEY,
   feggie_id INTEGER NOT NULL, 
   feg_name VARCHAR(25) NOT NULL,
-  img_src   VARCHAR(105) NOT NULL,
+  img_src   VARCHAR(500) NOT NULL,
   amount INTEGER,
   FOREIGN KEY (feggie_id) REFERENCES feggies(feggies_id)
 );

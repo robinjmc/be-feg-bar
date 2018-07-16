@@ -9,9 +9,9 @@ module.exports = {
             .catch(next);
     },
     addFegToList(req, res, next) {
-        const { feggie_id, feg_name, img_src, amount } = req.body;
+        const { feggie_id, feg_name, img_src } = req.body;
         const { feg_id } = req.params;
-        const feg_data = [feggie_id, feg_name, img_src, amount]
+        const feg_data = [feggie_id, feg_name, img_src, "1"]
         if(feg_data.includes(undefined)) throw { status: 400 }
         if (feg_id !== feggie_id) throw { status: 400 }
         db.manyOrNone('SELECT * FROM feg_list WHERE feggie_id = $1', [feggie_id])
