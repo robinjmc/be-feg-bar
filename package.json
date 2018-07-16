@@ -18,7 +18,8 @@
   "scripts": {
     "test": "psql -f ./seed/test.sql && mocha ./spec",
     "dev": "nodemon listen.js",
-    "seed": "psql -f ./seed/dev.sql"
+    "seed": "psql -f ./seed/dev.sql",
+    "start": "node listen.js"
   },
   "author": "",
   "license": "ISC"
