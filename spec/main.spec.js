@@ -129,8 +129,7 @@ describe('API', () => {
                     .send({
                         "feggie_id": "1",
                         "feg_name": "aubergine",
-                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                        "amount": "0"
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
                     })
                     .expect(201)
                     .then(({ body: { feggie } }) => {
@@ -140,19 +139,19 @@ describe('API', () => {
                             'feggie_id': 1,
                             'feg_name': 'aubergine',
                             'img_src': 'https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d',
-                            'amount': 0
+                            'amount': 1
                         })
                     })
             })
             it('POST same feg twice in list increments the amount', () => {
-                const amount = 0
+                // const amount = 0
                 return request
                     .post('/api/feg_list/5')
                     .send({
                         "feggie_id": "5",
                         "feg_name": "cavolo_nero",
-                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                        "amount": `${amount}`
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
+                        // "amount": `${amount}`
                     })
                     .expect(201)
                     .then(({ body: {feggie} }) => {
@@ -161,13 +160,13 @@ describe('API', () => {
                             .send({
                                 "feggie_id": `${feggie.feggie_id}`,
                                 "feg_name": `${feggie.feg_name}`,
-                                "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                                "amount": `${feggie.amount}`
+                                "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
+                                // "amount": `${feggie.amount}`
                             })
                             .expect(201)
                     })
                     .then(({ body: {feggie}  }) => {
-                        expect(feggie.amount).to.equal(amount + 1)
+                        expect(feggie.amount).to.equal(2)
                     })
             })
             it('PUT the amount of feg in list (up)', () => {
@@ -176,8 +175,7 @@ describe('API', () => {
                     .send({
                         "feggie_id": "2",
                         "feg_name": "beetroot",
-                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                        "amount": "0"
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
                     })
                     .expect(201)
                     .then(({ body: { feggie } }) => {
@@ -187,7 +185,7 @@ describe('API', () => {
                             .then(({ body: { feg_list } }) => {
                                 expect(feg_list).to.be.an('object')
                                 expect(feg_list.feggie_id).to.equal(2)
-                                expect(feg_list.amount).to.equal(1)
+                                expect(feg_list.amount).to.equal(2)
                             })
                     })
             })
@@ -197,8 +195,7 @@ describe('API', () => {
                     .send({
                         "feggie_id": "4",
                         "feg_name": "carrot",
-                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                        "amount": "1"
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
                     })
                     .expect(201)
                     .then(({ body: { feggie } }) => {
@@ -219,8 +216,7 @@ describe('API', () => {
                     .send({
                         "feggie_id": "3",
                         "feg_name": "brussels sprouts",
-                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                        "amount": "0"
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
                     })
                     .expect(201)
                     .then(({ body: { feggie } }) => {
@@ -229,7 +225,6 @@ describe('API', () => {
                             .delete(`/api/feg_list/${feggie.feg_list_id}`)
                             .expect(202)
                             .then(({ body: { feg_list } }) => {
-                                console.log(feg_list)
                                 expect(feg_list).to.be.an('object')
                                 expect(feg_list.feg_name).to.equal('brussels sprouts')
                             })

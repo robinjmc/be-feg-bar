@@ -9,14 +9,14 @@ module.exports = {
             .catch(next);
     },
     addFegToList(req, res, next) {
-        const { feggie_id, feg_name, img_src, amount } = req.body;
+        const { feggie_id, feg_name, img_src, nutrients } = req.body;
         const { feg_id } = req.params;
-        const feg_data = [feggie_id, feg_name, img_src, amount]
+        const feg_data = [feggie_id, feg_name, img_src, "1", nutrients]
         if(feg_data.includes(undefined)) throw { status: 400 }
         if (feg_id !== feggie_id) throw { status: 400 }
         db.manyOrNone('SELECT * FROM feg_list WHERE feggie_id = $1', [feggie_id])
             .then((feg) => {
-                let addFeg = feg.length ? db.one('UPDATE feg_list SET amount = amount + 1 WHERE feggie_id = $1 RETURNING *', [feg_data[0]]) : db.one('INSERT INTO feg_list (feggie_id, feg_name, img_src, amount) VALUES ($1, $2, $3, $4) RETURNING *', feg_data)
+                let addFeg = feg.length ? db.one('UPDATE feg_list SET amount = amount + 1 WHERE feggie_id = $1 RETURNING *', [feg_data[0]]) : db.one('INSERT INTO feg_list (feggie_id, feg_name, img_src, amount, nutrients) VALUES ($1, $2, $3, $4, $5) RETURNING *', feg_data)
                 return addFeg;
             })
             .then((addFeg) => {
