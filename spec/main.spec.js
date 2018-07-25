@@ -216,8 +216,7 @@ describe('API', () => {
                     .send({
                         "feggie_id": "3",
                         "feg_name": "brussels sprouts",
-                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d",
-                        "amount": "0"
+                        "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
                     })
                     .expect(201)
                     .then(({ body: { feggie } }) => {
@@ -226,7 +225,6 @@ describe('API', () => {
                             .delete(`/api/feg_list/${feggie.feg_list_id}`)
                             .expect(202)
                             .then(({ body: { feg_list } }) => {
-                                console.log(feg_list)
                                 expect(feg_list).to.be.an('object')
                                 expect(feg_list.feg_name).to.equal('brussels sprouts')
                             })
