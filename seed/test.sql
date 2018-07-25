@@ -44,6 +44,7 @@ CREATE TABLE feg_list (
   feggie_id INTEGER NOT NULL, 
   feg_name VARCHAR(25) NOT NULL,
   img_src   VARCHAR(500) NOT NULL,
+  nutrients   VARCHAR(500),
   amount INTEGER,
   FOREIGN KEY (feggie_id) REFERENCES feggies(feggies_id)
 );
