@@ -1,6 +1,7 @@
 process.env.NODE_ENV =  process.env.NODE_ENV || 'dev';
 
-const app = require('express')();
+const express = require('express');
+const app = express();
 const {json} = require('body-parser');
 const api = require('./routes/api');
 const cors = require('cors');
@@ -14,6 +15,12 @@ app.use(json());
 app.get('/api', (req, res) => res.status(200).send('All good!'));
 
 app.use('/api', api);
+
+app.use(express.static('./view'));
+
+app.get('/',function(req,res){
+    res.sendFile('index.html');
+  });
 
 app.use((err, req, res, next) => {
     console.log('error', JSON.stringify(err, null, 2))

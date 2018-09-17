@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fegbar Back End</title>
+</head>
+<body>
+    <h1>Routes</h1>
+    <h3>GET</h3>
+    <h4>/</h4>
+    <p>Renders this HTML page</p>
+
+    <h4>/api/feg_types/</h4>
+    <p>Get all the types feg (fruit, vegetable, etc.)</p>
+
+    <h4>/api/feg_types/:feg_type_id</h4>
+    <p>Return all the feggies by type</p>
+
+    <h4>/api/months/</h4>
+    <p>Returns all the months</p>
+
+    <h4>/api/months/:whats_in</h4>
+    <p>Get all feggies by month and whether they are in season (at_best) or coming in to season soon (coming_in)</p>
+
+    <h4>/api/feggies</h4>
+    <p>Returns a JSON object with the data of every individual feg.</p>
+
+    <h4>/api/feggies/:feg_id</h4>
+    <p>Returns the data of a individual feg.</p>
+
+    <h4>/api/feggies/:feg_id/:whats_in</h4>
+    <p>Get all the months that a individual feg is either at_best or coming_in</p>
+
+    <h4>/api/feg_list</h4>
+    <p>Returns a JSON object with the data of each feg in the feg_list and amount.</p>
+
+    <h3>POST</h3>
+    <h4>/api/feg_list/:feg_id</h4>
+    <p>Add a new feg to the feg list. This route requires a JSON body with feggie_id, feg_name and img_src key and their value pair
+    e.g:
+        ```
+        {
+            "feggie_id": "1",
+            "feg_name": "aubergine",
+            "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
+        }
+        ```</p>
+
+    <h3>PUT</h3>
+    <h4>/api/feg_list/:feg_id</h4>
+    <p>Increment or Decrement the amount of an feg by one. This route requires a amount query of 'up' or 'down'
+    e.g: `/api/feg_list/:feg_id?amount=up`</p>
+
+    <h3>DELETE</h3>
+    <h4>/api/feg_list/:feg_id</h4>
+    <p>Deletes a feg from the feg_list</p>
+
+</body>
+</html>
