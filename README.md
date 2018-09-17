@@ -46,9 +46,8 @@ In the command line run: $npm run seed
 
 # Run Locally
 To run locally with nodemon in the browser run in the command line: $npm run dev
-Without nodemon: $npm run start
 
-## Running the tests
+To run locally without nodemon: $npm run start
 
 # Config
 Create a SQL database in Postgres for use in testing named fegtable_test
@@ -81,13 +80,6 @@ GET /api/feg_types/:feg_type_id
 ```
 
 Return all the feggies by type
-<!-- 
-``` http
-POST /api/topics/:topic_id/articles
-```
-
-Add a new article to a topic. This route requires a JSON body with title and body key value pairs
-e.g: `{ "title": "this is my new article title", "body": "This is my new article content"}` -->
 
 ``` http
 GET /api/months
@@ -100,39 +92,6 @@ GET /api/months/:whats_in
 ```
 
 Get all feggies by month and whether they are in season (at_best) or coming in to season soon (coming_in)
-<!-- 
-``` http
-GET /api/articles/:article_id/comments
-```
-
-Get all the comments for a individual article
-
-``` http
-POST /api/articles/:article_id/comments
-```
-
-Add a new comment to an article. This route requires a JSON body with a comment key and value pair
-e.g: `{"comment": "This is my new comment"}`
-
-``` http
-PUT /api/articles/:article_id
-```
-
-Increment or Decrement the votes of an article by one. This route requires a vote query of 'up' or 'down'
-e.g: `/api/articles/:article_id?vote=up`
-
-``` http
-PUT /api/comments/:comment_id
-```
-
-Increment or Decrement the votes of a comment by one. This route requires a vote query of 'up' or 'down'
-e.g: `/api/comments/:comment_id?vote=down`
-
-``` http
-DELETE /api/comments/:comment_id
-```
-
-Deletes a comment -->
 
 ``` http
 GET /api/feggies
@@ -164,7 +123,7 @@ POST /api/feg_list/:feg_id
 ```
 
 Add a new feg to the feg list. This route requires a JSON body with feggie_id, feg_name and img_src key and their value pair
-e.g: 
+e.g:
     ```
     {
         "feggie_id": "1",
@@ -185,4 +144,4 @@ e.g: `/api/feg_list/:feg_id?amount=up`
 DELETE /api/feg_list/:feg_id
 ```
 
-Deletes a feg from the feg_list 
+Deletes a feg from the feg_list
