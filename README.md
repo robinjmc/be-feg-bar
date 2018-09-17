@@ -1,4 +1,7 @@
 # Fegbar Back End
+
+be-feg-bar deployed: http://feg-bar.herokuapp.com
+
 A REST-ful API serving data. Feg Types, Months, Feggies & Feg List.
 
 ## Getting Started
@@ -25,12 +28,12 @@ Inside the project folder create a database folder called 'db' that includes the
 
 The index.js file should include the following:
 
-`
+```
 const pgp = require('pg-promise')({promiseLib: Promise});
 const config = process.env.DATABASE_URL ? process.env.DATABASE_URL : require(`./config/${process.env.NODE_ENV}.js`);
 
 module.exports = pgp(config);
-`
+```
 
 Inside the config folder create a file called dev.js
 
@@ -162,13 +165,13 @@ POST /api/feg_list/:feg_id
 
 Add a new feg to the feg list. This route requires a JSON body with feggie_id, feg_name and img_src key and their value pair
 e.g: 
-    `
+    ```
     {
         "feggie_id": "1",
         "feg_name": "aubergine",
         "img_src": "https://c.pxhere.com/photos/06/4a/vegetables_season_leek_apple_useful_health_pumpkin_cabbage-673328.jpg!d"
     }
-    `
+    ```
 
 ``` http
 PUT /api/feg_list/:feg_id
